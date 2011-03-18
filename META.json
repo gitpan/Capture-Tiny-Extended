@@ -1,0 +1,71 @@
+{
+   "abstract" : "Capture STDOUT and STDERR from from Perl, XS or external programs (with some extras)",
+   "author" : [
+      "Christian Walde <mithaldu@yahoo.de>"
+   ],
+   "dynamic_config" : 1,
+   "generated_by" : "Dist::Zilla version 4.200004, CPAN::Meta::Converter version 2.110580",
+   "license" : [
+      "apache_2_0"
+   ],
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : "2"
+   },
+   "name" : "Capture-Tiny-Extended",
+   "no_index" : {
+      "directory" : [
+         "t",
+         "xt",
+         "examples",
+         "corpus"
+      ],
+      "package" : [
+         "DB"
+      ]
+   },
+   "prereqs" : {
+      "configure" : {
+         "requires" : {
+            "ExtUtils::MakeMaker" : "6.31"
+         }
+      },
+      "runtime" : {
+         "requires" : {
+            "Carp" : 0,
+            "Exporter" : 0,
+            "File::Spec" : 0,
+            "File::Temp" : 0,
+            "IO::Handle" : 0,
+            "perl" : "5.006"
+         }
+      },
+      "test" : {
+         "requires" : {
+            "File::Find" : 0,
+            "Test::More" : "0.62"
+         }
+      }
+   },
+   "provides" : {
+      "Capture::Tiny::Extended" : {
+         "file" : "lib/Capture/Tiny/Extended.pm",
+         "version" : "0.101"
+      }
+   },
+   "release_status" : "stable",
+   "resources" : {
+      "bugtracker" : {
+         "mailto" : "bug-capture-tiny-extended at rt.cpan.org",
+         "web" : "http://rt.cpan.org/Public/Dist/Display.html?Name=Capture-Tiny-Extended"
+      },
+      "homepage" : "http://github.com/wchristian/capture-tiny/tree",
+      "repository" : {
+         "type" : "git",
+         "url" : "git://github.com/wchristian/capture-tiny.git",
+         "web" : "http://github.com/wchristian/capture-tiny/tree"
+      }
+   },
+   "version" : "0.101"
+}
+

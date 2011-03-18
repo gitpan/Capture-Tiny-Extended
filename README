@@ -1,0 +1,192 @@
+NAME
+    Capture::Tiny::Extended - Capture STDOUT and STDERR from from Perl, XS
+    or external programs (with some extras)
+
+VERSION
+    version 0.101
+
+SYNOPSIS
+         use Capture::Tiny::Extended qw/capture tee capture_merged tee_merged/;
+ 
+         # capture return values
+ 
+         ($stdout, $stderr, @return) = capture {
+           # your code here
+         };
+ 
+         ($stdout, $stderr, @return) = tee {
+           # your code here
+         };
+ 
+         ($merged, @return) = capture_merged {
+           # your code here
+         };
+ 
+         ($merged, @return) = tee_merged {
+           # your code here
+         };
+ 
+         # or use explicit capture files
+ 
+         ($stdout, $stderr, @return) = capture(
+           {
+             # your code here
+           },
+           { stdout => 'stdout.log', stderr => 'stderr.log' }
+         );
+
+DESCRIPTION
+    Capture::Tiny::Extended is a fork of Capture::Tiny. It is functionally
+    identical with the parent module, except for the differences documented
+    here. Please see the documentation of Capture::Tiny for details on
+    standard usage.
+
+    As my time permits i will keep this fork up-todate with Capture::Tiny
+    itself and integrate any further bugfixes and changes.
+
+DIFFERENCES
+  Capturing Return Values
+    When executing code within a capture you sometimes want to also keep the
+    return value, for example when capturing a system() call. In
+    Capture::Tiny this has to be done like this:
+
+       use Capture::Tiny 'capture';
+ 
+       my $res;
+       my ( $out, $err ) = capture {
+           $res = system( 'ls' );
+       };
+
+    Capture::Tiny::Extended automatically captures return values and returns
+    them after the second return value (or first if you're using the merged
+    functions).
+
+       use Capture::Tiny::Extended 'capture';
+ 
+       my ( $out, $err, $res ) = capture { system( 'ls' ) };
+
+  Teeing In Realtime
+    Sometimes you want to use Capture::Tiny to capture any and all output of
+    an action and dump it into a log file, while also displaying it on the
+    screen and then post-process the results later on (for example for
+    sending status mails).
+
+    The only way to do this with Capture::Tiny is code like this:
+
+       use Capture::Tiny 'capture';
+       use File::Slurp;
+ 
+       my $res;
+       my ( $out, $err ) = capture {
+         # lockfile and other processing here along with debug output
+         $res = system( 'long_running_program' );
+       };
+ 
+       file_write 'out.log', $out;
+       send_mail( $err ) if $res;
+
+    This has a very big disadvantage. If the long-running program runs too
+    long, and the perl script is started by something like crontab there is
+    no way for you to get at the log output. You will have to wait for it to
+    complete before the captured output is written to the file.
+
+    Capture::Tiny::Extended gives you the option to provide filenames for it
+    to use as capture buffers. This means the output from the captured code
+    will appear on the screen and in the file in realtime, and will
+    afterwards be available to your Perl script in the variables returned by
+    the capture function:
+
+       use Capture::Tiny::Extended 'capture';
+ 
+       my ( $out, $err, $res ) = capture(
+         sub {
+           # lockfile and other processing here along with debug output
+           return system( 'long_running_program' );
+         },
+         { stdout => 'out.log', stderr => 'err.log' }
+       );
+ 
+       send_mail( $err ) if $res;
+
+    For purposes of avoiding data loss, the default behavior is to append to
+    the specified files. The key 'new_files' can be set to a true value on
+    the extra file hash parameter to instruct Capture::Tiny::Extended to
+    attempt to make files. It will die however if the specified files
+    already exist.
+
+       use Capture::Tiny::Extended 'capture';
+ 
+       my $out = capture_merged { system( 'ls' ) }, { stdout => 'out.log', new_files => 1 };
+
+    If existing files should always be overwritten, no matter what, the key
+    'clobber' can be set instead:
+
+       use Capture::Tiny::Extended 'capture';
+ 
+       my $out = capture_merged { system( 'ls' ) }, { stdout => 'out.log', clobber => 1 };
+
+WHY A FORK?
+    The realtime teeing feature was very important for one of my current
+    projects and i needed it on CPAN to be able to easily distribute it to
+    many systems.
+
+    I provided a patch for the first difference on Github to David Golden,
+    but due to being busy with real life and more important projects than
+    this he was not able to find time to proof and integrate it and in the
+    foreseeable future won't be able to either.
+
+    At the same time i lack the Perl file handle, descriptor and layer chops
+    to take responsibility for Capture::Tiny itself.
+
+    Usually i would have just written a subclass of the original, but since
+    Capture::Tiny is written in functional style this was not possible.
+
+    As such a fork seemed to be the best option to get these features out
+    there. I'd be more than happy to see them integrated into C::T someday
+    and will keep my git repository in such a state as to make this as easy
+    as possible. (Lots of rebasing.)
+
+ACKNOWLEDGEMENTS
+    Capture::Tiny is an invaluable tool that uses practically indecent
+    amounts of creativity to solve decidedly nontrivial problems and
+    circumvents many cliffs the ordinary coder (and most certainly me) would
+    inevitably crash against.
+
+    Many thanks to David Golden for taking the time and braving all those
+    traps of insanity to create Capture::Tiny.
+
+BUGS
+    Please report any bugs or feature requests using the CPAN Request
+    Tracker. Bugs can be submitted through the web interface at
+    <http://rt.cpan.org/Dist/Display.html?Queue=Capture-Tiny-Extended>
+
+    When submitting a bug or request, please include a test-file or a patch
+    to an existing test-file that illustrates the bug or desired feature.
+
+SUPPORT
+  Bugs / Feature Requests
+    Please report any bugs or feature requests by email to
+    "bug-capture-tiny-extended at rt.cpan.org", or through the web interface
+    at
+    <http://rt.cpan.org/Public/Dist/Display.html?Name=Capture-Tiny-Extended>
+    . You will be automatically notified of any progress on the request by
+    the system.
+
+  Source Code
+    This is open source software. The code repository is available for
+    public review and contribution under the terms of the license.
+
+    <http://github.com/wchristian/capture-tiny/tree>
+
+      git clone git://github.com/wchristian/capture-tiny.git
+
+AUTHOR
+    Christian Walde <mithaldu@yahoo.de>
+
+COPYRIGHT AND LICENSE
+    This software is Copyright (c) 2009 by Christian Walde.
+
+    This is free software, licensed under:
+
+      The Apache License, Version 2.0, January 2004
+
