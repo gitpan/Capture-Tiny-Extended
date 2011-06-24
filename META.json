@@ -4,7 +4,7 @@
       "Christian Walde <mithaldu@yahoo.de>"
    ],
    "dynamic_config" : 1,
-   "generated_by" : "Dist::Zilla version 4.200004, CPAN::Meta::Converter version 2.110580",
+   "generated_by" : "Dist::Zilla version 4.200004, CPAN::Meta::Converter version 2.110930",
    "license" : [
       "apache_2_0"
    ],
@@ -50,7 +50,7 @@
    "provides" : {
       "Capture::Tiny::Extended" : {
          "file" : "lib/Capture/Tiny/Extended.pm",
-         "version" : "0.102"
+         "version" : "0.112"
       }
    },
    "release_status" : "stable",
@@ -66,6 +66,6 @@
          "web" : "http://github.com/wchristian/capture-tiny/tree"
       }
    },
-   "version" : "0.102"
+   "version" : "0.112"
 }
 

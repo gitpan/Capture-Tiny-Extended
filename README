@@ -3,7 +3,7 @@ NAME
     or external programs (with some extras)
 
 VERSION
-    version 0.102
+    version 0.112
 
 SYNOPSIS
        use Capture::Tiny::Extended qw/capture tee capture_merged tee_merged/;
