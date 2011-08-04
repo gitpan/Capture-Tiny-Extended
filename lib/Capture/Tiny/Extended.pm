@@ -1,19 +1,8 @@
-#
-# This file is part of Capture-Tiny-Extended
-#
-# This software is Copyright (c) 2009 by Christian Walde.
-#
-# This is free software, licensed under:
-#
-#   The Apache License, Version 2.0, January 2004
-#
 use 5.006;
 use strict;
 use warnings;
 package Capture::Tiny::Extended;
-BEGIN {
-  $Capture::Tiny::Extended::VERSION = '0.113';
-}
+our $VERSION = '0.114'; # VERSION
 # ABSTRACT: Capture STDOUT and STDERR from from Perl, XS or external programs (with some extras)
 use Carp ();
 use Exporter ();
@@ -394,7 +383,7 @@ Capture::Tiny::Extended - Capture STDOUT and STDERR from from Perl, XS or extern
 
 =head1 VERSION
 
-version 0.113
+version 0.114
 
 =head1 SYNOPSIS
 
@@ -603,17 +592,27 @@ progress on the request by the system.
 This is open source software.  The code repository is available for
 public review and contribution under the terms of the license.
 
-L<http://github.com/wchristian/capture-tiny/tree>
+L<https://github.com/wchristian/capture-tiny>
 
-  git clone git://github.com/wchristian/capture-tiny.git
+  git clone https://github.com/wchristian/capture-tiny
 
-=head1 AUTHOR
+=head1 AUTHORS
+
+=over 4
+
+=item *
 
 Christian Walde <mithaldu@yahoo.de>
 
+=item *
+
+David Golden <dagolden@cpan.org>
+
+=back
+
 =head1 COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2009 by Christian Walde.
+This software is Copyright (c) 2009 by David Golden.
 
 This is free software, licensed under:
 

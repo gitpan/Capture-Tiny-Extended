@@ -3,7 +3,7 @@ NAME
     or external programs (with some extras)
 
 VERSION
-    version 0.113
+    version 0.114
 
 SYNOPSIS
        use Capture::Tiny::Extended qw/capture tee capture_merged tee_merged/;
@@ -207,15 +207,17 @@ SUPPORT
     This is open source software. The code repository is available for
     public review and contribution under the terms of the license.
 
-    <http://github.com/wchristian/capture-tiny/tree>
+    <https://github.com/wchristian/capture-tiny>
 
-      git clone git://github.com/wchristian/capture-tiny.git
+      git clone https://github.com/wchristian/capture-tiny
 
-AUTHOR
-    Christian Walde <mithaldu@yahoo.de>
+AUTHORS
+    *   Christian Walde <mithaldu@yahoo.de>
+
+    *   David Golden <dagolden@cpan.org>
 
 COPYRIGHT AND LICENSE
-    This software is Copyright (c) 2009 by Christian Walde.
+    This software is Copyright (c) 2009 by David Golden.
 
     This is free software, licensed under:
 

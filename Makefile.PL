@@ -2,21 +2,21 @@
 use strict;
 use warnings;
 
-BEGIN { require 5.006; }
+use 5.006;
 
-use ExtUtils::MakeMaker 6.31;
+use ExtUtils::MakeMaker 6.30;
 
 
 
 my %WriteMakefileArgs = (
   'ABSTRACT' => 'Capture STDOUT and STDERR from from Perl, XS or external programs (with some extras)',
-  'AUTHOR' => 'Christian Walde <mithaldu@yahoo.de>',
+  'AUTHOR' => 'Christian Walde <mithaldu@yahoo.de>, David Golden <dagolden@cpan.org>',
   'BUILD_REQUIRES' => {
     'File::Find' => '0',
     'Test::More' => '0.62'
   },
   'CONFIGURE_REQUIRES' => {
-    'ExtUtils::MakeMaker' => '6.31'
+    'ExtUtils::MakeMaker' => '6.30'
   },
   'DISTNAME' => 'Capture-Tiny-Extended',
   'EXE_FILES' => [],
@@ -29,7 +29,7 @@ my %WriteMakefileArgs = (
     'File::Temp' => '0',
     'IO::Handle' => '0'
   },
-  'VERSION' => '0.113',
+  'VERSION' => '0.114',
   'test' => {
     'TESTS' => 't/*.t'
   }
